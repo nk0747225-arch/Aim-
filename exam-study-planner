@@ -1,1 +1,207 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Study Planner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Exam Study Planner</h1>
+            <p>अपनी पढ़ाई और परीक्षाओं का पूरा शेड्यूल यहाँ मैनेज करें</p>
+        </header>
+
+        <section class="add-task-section">
+            <h2>नया लक्ष्य जोड़ें</h2>
+            <form id="study-form">
+                <input type="text" id="subject-input" placeholder="विषय का नाम (जैसे: English, Math)" required>
+                <input type="text" id="topic-input" placeholder="पढ़ने का टॉपिक/चैप्टर" required>
+                <input type="date" id="date-input" required>
+                <button type="submit">जोड़ें</button>
+            </form>
+        </section>
+
+        <section class="task-list-section">
+            <h2>आपके स्टडी गोल्स</h2>
+            <ul id="task-list"></ul>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
+</body>
+</html>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.add-task-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #219653;
+}
+
+.task-list-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-list-section li {
+    background: #ecf0f1;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-list-section li.completed {
+    text-decoration: line-through;
+    background: #d4efdf;
+    color: #7f8c8d;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+const form = document.getElementById('study-form');
+const subjectInput = document.getElementById('subject-input');
+const topicInput = document.getElementById('topic-input');
+const dateInput = document.getElementById('date-input');
+const taskList = document.getElementById('task-list');
+
+let tasks = JSON.parse(localStorage.getItem('study_tasks')) || [];
+
+function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        if (task.completed) li.classList.add('completed');
+
+        li.innerHTML = `
+            <div>
+                <strong>${task.subject}</strong>: ${task.topic} <br>
+                <small>तारीख: ${task.date}</small>
+            </div>
+            <div>
+                <button onclick="toggleTask(${index})">${task.completed ? 'वापस लें' : 'पूरा हुआ'}</button>
+                <button class="delete-btn" onclick="deleteTask(${index})">हटाएं</button>
+            </div>
+        `;
+        taskList.appendChild(li);
+    });
+}
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newTask = {
+        subject: subjectInput.value,
+        topic: topicInput.value,
+        date: dateInput.value,
+        completed: false
+    };
+
+    tasks.push(newTask);
+    localStorage.setItem('study_tasks', JSON.stringify(tasks));
+    renderTasks();
+    form.reset();
+});
+
+window.toggleTask = function(index) {
+    tasks[index].completed = !tasks[index].completed;
+    localStorage.setItem('study_tasks', JSON.stringify(tasks));
+    renderTasks();
+};
+
+window.deleteTask = function(index) {
+    tasks.splice(index, 1);
+    localStorage.setItem('study_tasks', JSON.stringify(tasks));
+    renderTasks();
+};
+
+renderTasks();
+{
+  "name": "Exam Study Planner",
+  "short_name": "StudyPlanner",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#27ae60",
+  "icons": []
+}
+self.addEventListener('install', (e) => {
+    console.log('Service Worker Installed');
+});
+
+self.addEventListener('fetch', (e) => {
+    e.respondWith(
+        caches.match(e.request).then((response) => {
+            return response || fetch(e.request);
+        })
+    );
+});
  
