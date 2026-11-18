@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Study Room</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f1f5ff;color:#172554;margin:0;padding:16px}
+header{background:#263e91;color:white;padding:22px;border-radius:16px;text-align:center}
+.card{background:white;padding:16px;margin:14px 0;border-radius:14px;box-shadow:0 2px 8px #ccd}
+h2{color:#263e91}button{padding:10px;border:0;border-radius:9px;background:#263e91;color:white;margin:4px}
+nav{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+section{display:none}.show{display:block}
+li{margin:9px 0}input{margin-right:8px}
+</style>
+</head>
+<body>
+<header>
+<h1>📚 My Study Room</h1>
+<p>BA Semester 1 | SSC CHSL | Railway Group D</p>
+<p>मेरी पढ़ाई, मेरा लक्ष्य</p>
+</header>
+
+<nav>
+<button onclick="openTab('home')">Home</button>
+<button onclick="openTab('time')">Time Table</button>
+<button onclick="openTab('ba')">BA Study</button>
+<button onclick="openTab('gov')">Government Exams</button>
+<button onclick="openTab('quiz')">Quiz</button>
+<button onclick="openTab('progress')">Progress</button>
+</nav>
+
+<section id="home" class="show">
+<div class="card">
+<h2>Welcome to My Study Room ❤️</h2>
+<p>यहाँ BA Semester 1 और Government Exams की तैयारी साथ-साथ करो।</p>
+<p>रोज पढ़ो, अभ्यास करो और अपना लक्ष्य पूरा करो।</p>
+</div>
+</section>
+
+<section id="time">
+<div class="card">
+<h2>📅 सामान्य दिन का टाइम टेबल</h2>
+<ul>
+<li>6:30–7:30 Maths</li>
+<li>7:40–8:40 Reasoning</li>
+<li>8:50–9:50 GK / GS</li>
+<li>10:00–10:45 English</li>
+<li>11:15–1:15 BA Semester Study</li>
+<li>3:00–8:00 Tuition</li>
+<li>8:30–9:00 Revision</li>
+</ul>
+</div>
+<div class="card">
+<h2>NCC दिन (गुरुवार और शनिवार)</h2>
+<ul>
+<li>7:00–10:00 NCC</li>
+<li>10:00–11:00 आराम</li>
+<li>11:00–12:00 Government Exam का एक विषय</li>
+<li>12:15–1:15 BA Study</li>
+<li>3:00–8:00 Tuition</li>
+<li>रात: आराम और हल्का रिविज़न</li>
+</ul>
+</div>
+</section>
+
+<section id="ba">
+<div class="card">
+<h2>🎓 BA Semester 1</h2>
+<h3>History Honours</h3>
+<ul>
+<li>भारतवर्ष और भौगोलिक विविधता</li>
+<li>इतिहास के स्रोत और काल विभाजन</li>
+<li>वेद, उपनिषद, बौद्ध और जैन साहित्य</li>
+<li>प्राचीन विज्ञान, तकनीक और अर्थव्यवस्था</li>
+</ul>
+<h3>Political Theory</h3>
+<ul>
+<li>राजनीतिक सिद्धांत</li><li>उदारवादी और मार्क्सवादी विचार</li>
+<li>शक्ति, न्याय और स्वतंत्रता</li><li>समानता, नागरिकता और लोकतंत्र</li>
+</ul>
+<h3>Understanding India</h3>
+<ul>
+<li>भारत और झारखंड का भूगोल</li><li>भारतीय संस्कृति और इतिहास</li>
+<li>संविधान और अर्थव्यवस्था</li><li>प्रमुख विचारक और समाज</li>
+</ul>
+<h3>Digital Education</h3>
+<ul>
+<li>कंप्यूटर परिचय</li><li>Hardware और Software</li>
+<li>Operating System और Linux</li><li>Word Processing</li>
+</ul>
+<p>Hindi और छठे पेपर का सिलेबस मिलने पर यहाँ जोड़ेंगे।</p>
+</div>
+</section>
+
+<section id="gov">
+<div class="card">
+<h2>🚆 SSC CHSL और Railway Group D</h2>
+<h3>Maths</h3>
+<p>संख्या पद्धति, जोड़-घटाव, गुणा-भाग, प्रतिशत, अनुपात, औसत, लाभ-हानि।</p>
+<h3>Reasoning</h3>
+<p>Series, Analogy, Coding-Decoding, दिशा, रक्त संबंध।</p>
+<h3>GK / GS</h3>
+<p>इतिहास, भूगोल, संविधान, सामान्य विज्ञान और करंट अफेयर्स।</p>
+<h3>English</h3>
+<p>Alphabet, Vocabulary, Noun, Pronoun, Tense और Grammar।</p>
+</div>
+</section>
+
+<section id="quiz">
+<div class="card">
+<h2>📝 छोटा Quiz</h2>
+<p id="question">भारत का संविधान कब लागू हुआ?</p>
+<button onclick="answer(0)">15 अगस्त 1947</button>
+<button onclick="answer(1)">26 जनवरी 1950</button>
+<button onclick="answer(2)">26 नवंबर 1949</button>
+<p id="result"></p>
+</div>
+</section>
+
+<section id="progress">
+<div class="card">
+<h2>✅ मेरी पढ़ाई की प्रगति</h2>
+<p>पूरे किए हुए विषयों पर टिक लगाओ।</p>
+<label><input type="checkbox"> Maths</label><br><br>
+<label><input type="checkbox"> Reasoning</label><br><br>
+<label><input type="checkbox"> GK / GS</label><br><br>
+<label><input type="checkbox"> English</label><br><br>
+<label><input type="checkbox"> History</label><br><br>
+<label><input type="checkbox"> Political Theory</label><br><br>
+<label><input type="checkbox"> Understanding India</label><br><br>
+<label><input type="checkbox"> Digital Education</label>
+</div>
+</section>
+
+<script>
+function openTab(id){
+document.querySelectorAll('section').forEach(s=>s.classList.remove('show'));
+document.getElementById(id).classList.add('show');
+}
+function answer(n){
+document.getElementById('result').innerText=
+n===1?'सही जवाब! 🎉':'फिर कोशिश करो। सही जवाब 26 जनवरी 1950 है।';
+}
+</script>
+</body>
+</html>
