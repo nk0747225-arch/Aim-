@@ -205,3 +205,5 @@ self.addEventListener('fetch', (e) => {
     );
 });
  
+cd exam-study-planner
+python -m http.server 8000
